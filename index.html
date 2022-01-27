@@ -3,15 +3,56 @@
 <head>
   <meta charset="utf-8"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/106/three.min.js"></script>
+  <script src="./wordlist.js"></script>
   <script src="./script.js"></script>
-  <script src="./wordset.js"></script>
-  <script src="./rank.js"></script>
   <link rel="stylesheet" href="./stylesheet.css">
 </head>
 <body>
-  <div class="canvas-wrapper">
-    <canvas id="myCanvas" width="960" height="540"></canvas>
-    <canvas id="myCanvas2" width="960" height="540"></canvas>  
-  </div>
+  <label>input1:</label>
+  <input id="input1">
+  <label>result1:</label>
+  <input id="result1"><br>
+
+  <label>input2:</label>
+  <input id="input2">
+  <label>result2:</label>
+  <input id="result2"><br>
+
+  <label>input3:</label>
+  <input id="input3">
+  <label>result3:</label>
+  <input id="result3"><br>
+
+  <label>input4:</label>
+  <input id="input4">
+  <label>result4:</label>
+  <input id="result4"><br>
+
+  <label>input5:</label>
+  <input id="input5">
+  <label>result5:</label>
+  <input id="resul5"><br>
+
+  <label>input6:</label>
+  <input id="input6">
+  <label>result6:</label>
+  <input id="result6"><br>
+  <button id="calbutton" style="width: 100px; height: 50px;" onclick="predict()">PREDICT</button><br>
+  <br>
+  All letters must be in lowercase.<br>
+ Yellow characters correspond to "+", green characters to "*", and all other characters to "-".<br>
+  <h2>Example:</h2>
+  <label>input0:</label>
+  <input id="input0" value="weary">
+  <label>result0:</label>
+  <input id="result0" value="*----"><br>
+  <label>input0:</label>
+  <input id="input0" value="pills">
+  <label>result0:</label>
+  <input id="result0" value="-+---"><br><br>
+  <h1>RESULT</h1>
+  <textarea id="strategy" style="width:max(500px,50%); height:150px;">
+    Here is prediction
+  </textarea>
 </body>
 </html>
