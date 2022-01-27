@@ -19,7 +19,7 @@ function checkTile(ans,test){
     let tileCheck=[0,0,0,0,0];
     let yellowList="";
     for(let i = 0;i < 5;i++){
-        if(ans.substr(i,1)==test.substr(i,1)) tileCheck[i] = 2;
+        if(ans.substr(i,1)==test.substr(i,1)) tileCheck[i] = 2,yellowList+=test.substr(i,1);
     }
     for(let i = 0;i < 5;i++){
         if(tileCheck[i]!=2){
@@ -40,7 +40,7 @@ function calc_Acc(restriction,word,tileNum){
     return tempSum/wordlist_ans.length;
 }
 function calc_Inq(restriction){
-    //評価値を計算する　　restrictionに適合している数の自然対数を返却
+    //評価値を計算する　　restrictionに適合している数（の自然対数）を返却
     let tempSum=0;
     let fitFlg=1;
     for(var i = 0;i < wordlist_ans.length;i++){
@@ -86,6 +86,7 @@ function predict(){
         if(document.getElementById("input"+(i+1)).value != ""){
             word_input[i] = document.getElementById("input"+(i+1)).value;
             res_input[i]=document.getElementById("result"+(i+1)).value;
+            word_input[i]=String(word_input[i]).toLowerCase();
             for(var j = 0;j < 5;j++){
                 if(res_input[i].substr(j,1) == '-'){
                     res_input_each[i][j] = 0;
@@ -100,6 +101,13 @@ function predict(){
     }
 
     let word_pos= set_Restriction(restriction);
+    if(calc_Inq(restriction) > Math.log(30)){
+        if(calc_Inq(restriction) == Math.log(wordlist.length)){
+            window.alert("Enter some results. You should start with \"SALET\"");
+            return 0;
+        }
+        if(!window.confirm("This calculation may take too long time. Are you sure?")) return 0;
+    }
 
     for (let i = 0;i < wordlist.length;i++){ //評価値の計算
         if(word_pos[i]){
@@ -114,11 +122,11 @@ function predict(){
         if(i%50==0) document.getElementById("strategy").value= i + " / " + wordlist.length;
     }
 
-    word_pred.sort((a,b)=>(b.val-a.val));
+    word_pred.sort((a,b)=>(a.val-b.val));
     word_sum=word_pred.length;
-    result_text+="remains: " + word_sum + "\n\n";
+    result_text+="Possible words: " + word_sum + "\n\n";
     for(var i = 0;i < Math.min(100,word_pred.length);i++){
-        result_text+=(i+1) +": " + word_pred[i].word + "\n";
+        result_text+=(i+1) +": " + word_pred[i].word + " : ("+ (Number(word_pred[i].val-word_pred[0].val)) + ")\n";
     }
     document.getElementById("strategy").value=result_text;
 }
